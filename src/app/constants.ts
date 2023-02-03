@@ -1,0 +1,1 @@
+export const LINES_TYPES = ["TRAM", "CHRONO", "PROXIMO", "FLEXO"];
