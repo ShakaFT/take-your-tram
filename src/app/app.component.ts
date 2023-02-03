@@ -13,7 +13,6 @@ export class AppComponent {
 
   ngOnInit() {
     this._loadData()
-    this.transportsNetwork.check()
   }
 
   private _loadData() {

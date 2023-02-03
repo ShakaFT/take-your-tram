@@ -14,8 +14,4 @@ export class TransportsNetworkService {
   public addLines(typeLines: string, lines: Line[]) {
       this.transportData.set(typeLines, lines)
   }
-
-  public check() {
-    console.log(this.transportData)
-  }
 }
