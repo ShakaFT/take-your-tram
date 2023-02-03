@@ -1,4 +1,4 @@
-import { Stop } from "./Stop";
+import { Cluster } from "./Cluster";
 
 export interface Line {
     id: string,
@@ -9,5 +9,5 @@ export interface Line {
     textColor: string,
     mode: string,
     type: string,
-    stops: Stop[]
+    clusters: Cluster[]
 }

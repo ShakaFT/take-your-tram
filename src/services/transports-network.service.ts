@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Line } from 'src/interfaces/Line';
-import { TagLines } from 'src/interfaces/TagLines';
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +7,15 @@ import { TagLines } from 'src/interfaces/TagLines';
 export class TransportsNetworkService {
 
   //transportData: Map<string, Map<string, any>> = new Map<string, Map<string, any>>()
-  transportData: TagLines[] = []
+  transportData: Map<string, Line[]> = new  Map<string, Line[]>()
 
   constructor() { }
 
-  public addTagLines(tagLines: TagLines) {
-      this.transportData.push(tagLines)
-  
-  //   const data = new Map<string, any>([
-  //     ["key1", "value1"],
-  //     ["key2", "value2"]
-  // ])
-  //   this.transportData.set(tagLine.type, data)
+  public addLines(typeLines: string, lines: Line[]) {
+      this.transportData.set(typeLines, lines)
+  }
+
+  public check() {
+    console.log(this.transportData)
   }
 }

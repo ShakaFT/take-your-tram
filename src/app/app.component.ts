@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { TagLines } from 'src/interfaces/TagLines';
 import { ApiService } from 'src/services/api.service';
 import { TransportsNetworkService } from 'src/services/transports-network.service';
 import { LINES_TYPES } from './constants';
@@ -14,15 +13,18 @@ export class AppComponent {
 
   ngOnInit() {
     this._loadData()
+    this.transportsNetwork.check()
   }
 
   private _loadData() {
-    LINES_TYPES.forEach((linesType) => {
-      this.api.getLines(linesType).subscribe((lines) => {
-        console.log(lines)
-        const tagLines: TagLines = {linesType: linesType, lines: lines}
-        this.transportsNetwork.addTagLines(tagLines)
-
+    LINES_TYPES.forEach((typeLines) => {
+      this.api.getLines(typeLines).subscribe((lines) => {
+        lines.forEach((line) => {
+          this.api.getClusters(line.id).subscribe((clusters) => {
+            line.clusters = clusters
+          })
+        })
+        this.transportsNetwork.addLines(typeLines, lines)
       })
     })
   }
