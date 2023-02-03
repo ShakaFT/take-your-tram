@@ -1,0 +1,16 @@
+{
+    "files.exclude": {
+        ".angular": true,
+        "node_modules": true,
+        "src/environments": true,
+        "src/polyfills.ts": true,
+        "src/test.ts": true,
+        ".browserslistrc": true,
+        ".editorconfig": true,
+        ".eslintrc.json": true,
+        "capacitor.config.ts": true,
+        "karma.conf.js": true,
+        "package-lock.json": true,
+        "tsconfig*": true
+    }
+}
