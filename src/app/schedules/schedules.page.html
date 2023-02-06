@@ -12,4 +12,14 @@
       <ion-title size="large">Horaires</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-card *ngFor="let lineType of linesType">
+    <ion-card-header>
+      <ion-card-title>{{lineType}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label *ngFor="let line of transportData.get(lineType)">
+        <ion-chip [ngStyle]="{'--background': '#'+line.color,'--color': '#'+line.textColor, 'font-weight': '700'} ">{{line.shortName}}</ion-chip>
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

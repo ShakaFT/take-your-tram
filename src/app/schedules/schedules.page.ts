@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Line } from 'src/interfaces/Line';
+import { TransportsNetworkService } from 'src/services/transports-network.service';
+import { LINES_TYPES } from '../constants';
 
 @Component({
   selector: 'app-schedule',
@@ -7,6 +10,12 @@ import { Component } from '@angular/core';
 })
 export class SchedulesPage {
 
-  constructor() {}
+  constructor(private transportsNetwork: TransportsNetworkService) {}
 
+  transportData: Map<string, Line[]> = new Map<string, Line[]>()
+  linesType: string[] = LINES_TYPES
+
+  ngOnInit() {
+    this.transportData = this.transportsNetwork.getTransportData()
+  }
 }

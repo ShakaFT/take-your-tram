@@ -26,5 +26,9 @@ export class TransportsNetworkService {
 
   public getCluster(name: string): string {
     return this.clusters.get(name)!
-  } 
+  }
+
+  public getTransportData(): Map<string, Line[]> {
+    return this.transportData
+  }
 }
