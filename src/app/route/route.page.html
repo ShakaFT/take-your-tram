@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Itinéraire
-    </ion-title>
+    <ion-title> Itinéraire </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,4 +10,7 @@
       <ion-title size="large">Itinéraire</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-input placeholder="Départ" [disabled]="true" (click)="displaySearchClusters()"></ion-input>
+  <ion-input placeholder="Arrivée" [disabled]="true" (click)="displaySearchClusters()"></ion-input>
 </ion-content>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-route',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class RoutePage {
 
-  constructor() {}
+  constructor(public navCtrl: NavController) {}
+
+  public displaySearchClusters() {
+    this.navCtrl.navigateForward(["search"])
+  }
 
 }
