@@ -10,7 +10,7 @@
 </ion-header>
 <ion-content class="ion-padding">
   <ion-accordion-group expand="inset">
-    <ion-accordion *ngFor="let cluster of line?.clusters" value={{cluster.name}}>
+    <ion-accordion *ngFor="let cluster of line?.clusters" value={{cluster.name}} (click)="getRealTimes(cluster.code)" >
       <ion-item slot="header" [ngStyle]="{'--background': '#'+line?.color,'--color': '#'+line?.textColor, 'font-weight': '700'}">
         <ion-label>{{cluster.name}}</ion-label>
       </ion-item>
