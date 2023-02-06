@@ -21,6 +21,7 @@ export class AppComponent {
         lines.forEach((line) => {
           this.api.getClusters(line.id).subscribe((clusters) => {
             line.clusters = clusters
+            this.transportsNetwork.addClusters(clusters)
           })
         })
         this.transportsNetwork.addLines(typeLines, lines)
