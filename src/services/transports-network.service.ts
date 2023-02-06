@@ -3,28 +3,35 @@ import { Cluster } from 'src/interfaces/Cluster';
 import { Line } from 'src/interfaces/Line';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TransportsNetworkService {
+  private transportData: Map<string, Line[]> = new Map<string, Line[]>();
+  private clusters: Map<string, string> = new Map<string, string>();
 
-  private transportData: Map<string, Line[]> = new Map<string, Line[]>()
-  private clusters: Map<string, string> = new Map<string, string>()
-
-  constructor() { }
+  constructor() {}
 
   public addLines(typeLines: string, lines: Line[]) {
-    this.transportData.set(typeLines, lines)
+    this.transportData.set(typeLines, lines);
   }
 
   public addClusters(newClusters: Cluster[]) {
-    newClusters.forEach(newCluster => {
-      if(!this.clusters.has(newCluster.name)){
-        this.clusters.set(newCluster.name, newCluster.id)
+    newClusters.forEach((newCluster) => {
+      if (!this.clusters.has(newCluster.name)) {
+        this.clusters.set(newCluster.name, newCluster.id);
       }
-    })
+    });
   }
 
   public getCluster(name: string): string {
-    return this.clusters.get(name)!
-  } 
+    return this.clusters.get(name)!;
+  }
+
+  public getClusterNames(filter: string = ''): string[] {
+    const filteredNames = [...this.clusters.keys()].filter((name) =>
+      name.toLowerCase().includes(filter.toLowerCase())
+    );
+    filteredNames.sort();
+    return filteredNames;
+  }
 }

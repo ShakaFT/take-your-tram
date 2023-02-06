@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    loadChildren: () => import('./components/search-clusters/search-clusters.module').then(m => m.SearchClustersModule)
+    loadChildren: () => import('./route/search-route-clusters/search-route-clusters.module').then(m => m.SearchRouteClustersModule)
   }
 ];
 @NgModule({

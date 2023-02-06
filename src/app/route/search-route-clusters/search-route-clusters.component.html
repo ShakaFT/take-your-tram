@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar (ionChange)="onChangeSearchbar($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card (click)="onClickClusterName(clusterName)" *ngFor="let clusterName of clusterNamesToDisplay;">
+    {{ clusterName }}
+  </ion-card>
+</ion-content>

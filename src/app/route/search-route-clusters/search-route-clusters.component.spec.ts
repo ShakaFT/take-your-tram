@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SearchClustersComponent } from './search-clusters.component';
+import { SearchRouteClustersComponent } from './search-route-clusters.component';
 
-describe('SearchClustersComponent', () => {
-  let component: SearchClustersComponent;
-  let fixture: ComponentFixture<SearchClustersComponent>;
+describe('SearchRouteClustersComponent', () => {
+  let component: SearchRouteClustersComponent;
+  let fixture: ComponentFixture<SearchRouteClustersComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchClustersComponent ],
+      declarations: [ SearchRouteClustersComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SearchClustersComponent);
+    fixture = TestBed.createComponent(SearchRouteClustersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

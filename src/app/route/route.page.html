@@ -11,6 +11,42 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-input placeholder="Départ" [disabled]="true" (click)="displaySearchClusters()"></ion-input>
-  <ion-input placeholder="Arrivée" [disabled]="true" (click)="displaySearchClusters()"></ion-input>
+  <ion-input
+    placeholder="Départ"
+    value="{{start === 'undefined' ? '' : start}}"
+    style="border: 2px solid white;"
+    [disabled]="true"
+    (click)="displaySearchClusters('start')"
+  ></ion-input>
+  <ion-icon
+    name="repeat"
+    style="margin: 0.8em"
+    (click)="reverseDestinations()"
+  ></ion-icon>
+  <ion-input
+    placeholder="Arrivée"
+    value="{{end === 'undefined' ? '' : end}}"
+    style="border: 2px solid white"
+    [disabled]="true"
+    (click)="displaySearchClusters('end')"
+  ></ion-input>
+
+  <br />
+
+  <input
+    type="date"
+    style="margin: 1em"
+    [(ngModel)]="startDate"
+    (ngModelChange)="startDate = $event"
+  />
+  <input
+    type="time"
+    [(ngModel)]="startTime"
+    (ngModelChange)="startTime = $event"
+  />
+
+  <ion-button
+    style="display: block; margin-left: auto; margin-right: auto; margin: 1em"
+    >Rechercher</ion-button
+  >
 </ion-content>
