@@ -28,6 +28,10 @@ export class TransportsNetworkService {
     return this.clusters.get(name)!
   }
 
+  // public getClustersFromLine(lineType: string, lineId: string): Cluster[] {
+  //   return this.transportData.get(lineType)?.find(line => line.id == lineId)?.clusters!
+  // }
+
   public getTransportData(): Map<string, Line[]> {
     return this.transportData
   }

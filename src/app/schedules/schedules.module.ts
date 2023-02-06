@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { SchedulesPage } from './schedules.page';
 
 import { SchedulesPageRoutingModule } from './schedules-routing.module';
+import { ClustersModalComponent } from './modal/clusters-modal/clusters-modal.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { SchedulesPageRoutingModule } from './schedules-routing.module';
     FormsModule,
     SchedulesPageRoutingModule
   ],
-  declarations: [SchedulesPage]
+  declarations: [SchedulesPage, ClustersModalComponent]
 })
 export class SchedulesPageModule {}
