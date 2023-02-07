@@ -1,0 +1,16 @@
+export interface Time {
+    stopId: string,
+    stopName: string,
+    scheduledArrival: number,
+    scheduledDeparture: number,
+    realtimeArrival: number,
+    realtimeDeparture: number,
+    arrivalDelay: number,
+    departureDelay: number,
+    timepoint: boolean,
+    realtime: boolean,
+    realtimeState: string,
+    serviceDay: number,
+    tripId: string,
+    headsign: string,
+}
