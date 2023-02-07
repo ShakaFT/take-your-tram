@@ -25,4 +25,8 @@ export class ApiService {
   public getRealtimes(clusterCode: string): Observable<RealTime[]> {
     return this.http.get<RealTime[]>(`${this.baseUrl}/routers/default/index/clusters/${clusterCode}/stoptimes`)
   }
+
+  public getRealtimesFromLine(clusterCode: string, lineId: string): Observable<RealTime[]> {
+    return this.http.get<RealTime[]>(`${this.baseUrl}/routers/default/index/clusters/${clusterCode}/stoptimes?route=${lineId}`)
+  }
 }

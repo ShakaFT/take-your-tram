@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { join } from 'path';
 import { Cluster } from 'src/interfaces/Cluster';
 import { Line } from 'src/interfaces/Line';
+import { RealTime } from 'src/interfaces/RealTimes';
 import { ApiService } from 'src/services/api.service';
 import { TransportsNetworkService } from 'src/services/transports-network.service';
 
@@ -12,18 +14,35 @@ import { TransportsNetworkService } from 'src/services/transports-network.servic
 })
 export class ClustersModalComponent implements OnInit {
 
-  constructor(private modalControlle: ModalController, private transportsNetwork: TransportsNetworkService, private api: ApiService) {}
+  constructor(private modalControlle: ModalController, private transportsNetwork: TransportsNetworkService, private api: ApiService) { }
 
   @Input() line: Line | null = null
 
   clusters: Cluster[] = []
+  currentRealTimes: RealTime[] = []
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  getRealTimes(clusterCode: string) {
-    this.api.getRealtimes(clusterCode).subscribe(data => {
-      //TODO save real time
+  getRealTimesFromLine(clusterCode: string, lineId: string) {
+    this.api.getRealtimesFromLine(clusterCode, lineId).subscribe(data => {
+      this.currentRealTimes = data
     })
+  }
+
+  calculateNextArrival(serviceDay: number, realtimeArrival: number): string {
+    const timeBeforeNextArrival = Math.ceil(((serviceDay + realtimeArrival) - (Date.now() / 1000)) / 60)
+    return `${timeBeforeNextArrival} min`
+  }
+
+  removeDuplicateRealTimes(realTimes: RealTime[]): RealTime[] {
+
+    return realTimes = realTimes.filter((value, index, self) =>
+      index === self.findIndex((t) => (
+        t.pattern.lastStopName === value.pattern.lastStopName
+      ))
+
+    )
+
   }
 
   cancel() {

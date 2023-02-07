@@ -10,12 +10,31 @@
 </ion-header>
 <ion-content class="ion-padding">
   <ion-accordion-group expand="inset">
-    <ion-accordion *ngFor="let cluster of line?.clusters" value={{cluster.name}} (click)="getRealTimes(cluster.code)" >
-      <ion-item slot="header" [ngStyle]="{'--background': '#'+line?.color,'--color': '#'+line?.textColor, 'font-weight': '700'}">
+    <ion-accordion *ngFor="let cluster of line?.clusters" value={{cluster.name}}
+      (click)="getRealTimesFromLine(cluster.code, line!.id)">
+      <ion-item slot="header"
+        [ngStyle]="{'--background': '#'+line?.color,'--color': '#'+line?.textColor, 'font-weight': '700'}">
         <ion-label>{{cluster.name}}</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
-        
+        <ion-item-group *ngFor="let RealTime of removeDuplicateRealTimes(currentRealTimes)">
+          <ion-item slot="start">
+            <ion-chip [ngStyle]="{'--background': '#'+line!.color,'--color': '#'+line!.textColor, 'font-weight': '700'}">
+              {{line!.shortName}}
+            </ion-chip>
+            <ion-label class="ion-padding-start">
+              {{RealTime.pattern.lastStopName}}
+            </ion-label>
+          </ion-item>
+          <ion-item class="ion-text-center">
+            <ion-label *ngFor="let time of RealTime.times.slice(0, 3)">
+              {{calculateNextArrival(time.serviceDay, time.realtimeArrival)}}
+            </ion-label>
+          </ion-item>
+        </ion-item-group>
+        <ion-label *ngIf="currentRealTimes.length === 0">
+          Pas de passage dans l'immédiat
+        </ion-label>
       </div>
     </ion-accordion>
   </ion-accordion-group>
