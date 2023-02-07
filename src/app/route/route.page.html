@@ -14,7 +14,7 @@
   <ion-input
     placeholder="Départ"
     value="{{start === 'undefined' ? '' : start}}"
-    style="border: 2px solid white;"
+    style="border: 2px solid white"
     [disabled]="true"
     (click)="displaySearchClusters('start')"
   ></ion-input>
@@ -33,20 +33,27 @@
 
   <br />
 
-  <input
-    type="date"
-    style="margin: 1em"
-    [(ngModel)]="startDate"
-    (ngModelChange)="startDate = $event"
-  />
-  <input
-    type="time"
-    [(ngModel)]="startTime"
-    (ngModelChange)="startTime = $event"
-  />
+  <ion-item>
+    <input
+      type="date"
+      style="margin: 1em"
+      [(ngModel)]="startDate"
+      (ngModelChange)="startDate = $event"
+    />
+    <input
+      type="time"
+      [(ngModel)]="startTime"
+      (ngModelChange)="startTime = $event"
+    />
+  </ion-item>
 
   <ion-button
     style="display: block; margin-left: auto; margin-right: auto; margin: 1em"
+    (click)="searchItineraries()"
     >Rechercher</ion-button
   >
+
+  <ion-item class="ion-text-center" *ngIf="displayError">
+    <ion-label color="danger">Tous les champs sont requis</ion-label>
+  </ion-item>
 </ion-content>

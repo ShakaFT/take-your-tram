@@ -34,4 +34,21 @@ export class TransportsNetworkService {
     filteredNames.sort();
     return filteredNames;
   }
+
+  public getPositions(clusterName: string): number[] {
+    const values = Array.from(this.transportData.values())
+    for (let i = 0; i < values.length; i++) {
+      const lines = values[i]
+      for (let j = 0; j < lines.length; j++) {
+        const line = lines[j]
+        for (let k = 0; k < line.clusters.length; k++) {
+          const cluster = line.clusters[k]
+          if (clusterName === cluster.name) {
+            return [cluster.lat, cluster.lon]
+          }
+        }
+      }
+    }
+    return [0, 0]
+  }
 }
