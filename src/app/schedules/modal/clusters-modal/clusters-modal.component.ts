@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { join } from 'path';
 import { Cluster } from 'src/interfaces/Cluster';
 import { Line } from 'src/interfaces/Line';
 import { RealTime } from 'src/interfaces/RealTimes';
