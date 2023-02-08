@@ -1,4 +1,5 @@
-import { Cluster } from "cluster";
+import { Cluster } from "./Cluster"
+
 
 export interface Leg {
     startTime: string,
@@ -9,4 +10,6 @@ export interface Leg {
     routeColor: string,
     routeTextColor: string,
     intermediateStops: Cluster[]
+    from: any
+    to: any
 }

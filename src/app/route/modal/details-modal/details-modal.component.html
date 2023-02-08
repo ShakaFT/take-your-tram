@@ -9,6 +9,40 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
+  <ion-item style="margin-bottom:1em">
+    <ion-label>{{ duration }}min</ion-label>
+    <ion-label>{{ startTime }} - {{ endTime }}</ion-label>
+  </ion-item>
+
+  <div *ngFor="let leg of legs">
+    <div *ngIf="leg.mode === 'WALK'" style="margin-bottom:1em">
+      <ion-item>
+        <i class="fa-solid fa-person-walking ion-margin"></i>
+        <ion-label>{{ leg.distance }}m</ion-label>
+      </ion-item>
+    </div>
+
+    <div *ngIf="leg.mode !== 'WALK'" style="margin-bottom:1em">
+      <ion-item
+        ><ion-label>{{ getStart(leg) }}</ion-label></ion-item
+      >
+      <ion-accordion-group expand="inset">
+        <ion-accordion>
+          <ion-item slot="header">
+            <ion-label>Arrêts intermédiaires</ion-label>
+          </ion-item>
+          <div slot="content">
+            <ion-item *ngFor="let cluster of leg.intermediateStops"
+              ><ion-label>{{ cluster.name }}</ion-label></ion-item
+            >
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+      <ion-item
+        ><ion-label>{{ getEnd(leg) }}</ion-label></ion-item
+      >
+    </div>
+  </div>
 </ion-content>
 
 <!--
