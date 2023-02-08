@@ -5,6 +5,7 @@ import { Line } from 'src/interfaces/Line';
 import { Cluster } from 'src/interfaces/Cluster';
 import { RealTime } from 'src/interfaces/RealTimes';
 import { PlannerResource } from 'src/interfaces/PlannerResource';
+import { TransportsNetworkService } from './transports-network.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,11 +15,17 @@ export class ApiService {
   private routeUrl: string =
     'https://data.mobilites-m.fr/api/routers/default/plan?routerId=prod&mode=WALK,TRANSIT&showIntermediateStops=true&numItineraries=3&maxWalkDistance=1000&fromPlace=45.18466,5.73177&toPlace=45.18528,5.78458&arriveBy=false&time=09:55&date=2023-02-07&locale=fr_FR&walkReluctance=10';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private transportNetwork: TransportsNetworkService) {}
 
   public getLines(lineType: string): Observable<Line[]> {
     return this.http.get<Line[]>(
       `${this.baseUrl}/routers/default/index/routes?reseaux=${lineType}`
+    );
+  }
+
+  public getLinesFromCluster(clusterName: string): Observable<Line[]> {
+    return this.http.get<Line[]>(
+      `${this.baseUrl}/routers/default/index/clusters/${this.transportNetwork.getClusters().get(clusterName)?.replace(":", ":GEN")}/routes`
     );
   }
 
@@ -28,9 +35,10 @@ export class ApiService {
     );
   }
 
-  public getRealtimes(clusterCode: string): Observable<RealTime[]> {
+  public getRealtimes(clusterName: string): Observable<RealTime[]> {
+    console.log(this.transportNetwork.getClusters().get(clusterName))
     return this.http.get<RealTime[]>(
-      `${this.baseUrl}/routers/default/index/clusters/${clusterCode}/stoptimes`
+      `${this.baseUrl}/routers/default/index/clusters/${this.transportNetwork.getClusters().get(clusterName)?.replace(":", ":GEN")}/stoptimes`
     );
   }
 

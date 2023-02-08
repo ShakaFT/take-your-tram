@@ -13,7 +13,7 @@ import { TransportsNetworkService } from 'src/services/transports-network.servic
 })
 export class ClustersModalComponent implements OnInit {
 
-  constructor(private modalControlle: ModalController, private transportsNetwork: TransportsNetworkService, private api: ApiService) { }
+  constructor(private modalController: ModalController, private transportsNetwork: TransportsNetworkService, private api: ApiService) { }
 
   @Input() line: Line | null = null
 
@@ -45,11 +45,11 @@ export class ClustersModalComponent implements OnInit {
   }
 
   cancel() {
-    return this.modalControlle.dismiss(null, 'cancel');
+    return this.modalController.dismiss(null, 'cancel');
   }
 
   confirm() {
-    return this.modalControlle.dismiss(null, 'confirm');
+    return this.modalController.dismiss(null, 'confirm');
   }
 
 }

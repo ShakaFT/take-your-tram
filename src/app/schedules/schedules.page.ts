@@ -3,7 +3,7 @@ import { Line } from 'src/interfaces/Line';
 import { TransportsNetworkService } from 'src/services/transports-network.service';
 import { LINES_TYPES } from '../constants';
 
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { ClustersModalComponent } from './modal/clusters-modal/clusters-modal.component';
 import { Cluster } from 'src/interfaces/Cluster';
 
@@ -15,7 +15,7 @@ import { Cluster } from 'src/interfaces/Cluster';
 })
 export class SchedulesPage {
 
-  constructor(private transportsNetwork: TransportsNetworkService, private modalController: ModalController) {}
+  constructor(private transportsNetwork: TransportsNetworkService, private modalController: ModalController, private navCtrl: NavController) { }
 
   transportData: Map<string, Line[]> = new Map<string, Line[]>()
   linesTypes: string[] = LINES_TYPES
@@ -27,9 +27,13 @@ export class SchedulesPage {
   async openModal(line: Line) {
     const modal = await this.modalController.create({
       component: ClustersModalComponent,
-      componentProps: {line: line},
+      componentProps: { line: line },
     });
     modal.present();
   }
-  
+
+  displaySearchSchedules() {
+    this.navCtrl.navigateForward(['search-schedules']);
+  }
+
 }
