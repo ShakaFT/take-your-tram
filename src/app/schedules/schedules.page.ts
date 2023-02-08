@@ -30,12 +30,6 @@ export class SchedulesPage {
       componentProps: {line: line},
     });
     modal.present();
-
-    const { data, role } = await modal.onWillDismiss();
-
-    if (role === 'confirm') {
-      
-    }
   }
   
 }

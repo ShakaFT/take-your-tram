@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { ApiService } from 'src/services/api.service';
 import { TransportsNetworkService } from 'src/services/transports-network.service';
+import { ItinerariesModalComponent } from './modal/itineraries-modal/itineraries-modal.component';
 
 @Component({
   selector: 'app-route',
@@ -13,13 +14,14 @@ export class RoutePage {
   constructor(
     private activatedRoute: ActivatedRoute,
     private api: ApiService,
+    private modalCtrl: ModalController,
     private navCtrl: NavController,
     private transportsNetwork: TransportsNetworkService
   ) {}
 
   displayError = false;
-  startDate: string = '';
-  startTime: string = '';
+  date: string = '';
+  time: string = '';
   end = '';
   start = '';
 
@@ -29,8 +31,8 @@ export class RoutePage {
     });
 
     const now = new Date().toLocaleString()
-    this.startDate = now.split(" ")[0].split("/").reverse().join("-")
-    this.startTime = now.split(" ")[1].slice(0, -3)
+    this.date = now.split(" ")[0].split("/").reverse().join("-")
+    this.time = now.split(" ")[1].slice(0, -3)
   }
 
   public displaySearchClusters(searchbar: string) {
@@ -45,25 +47,23 @@ export class RoutePage {
     this.end = tmp;
   }
 
-  public searchItineraries() {
+  public async searchItineraries() {
     if (!this.start || !this.start) {
       this.displayError = true;
       return;
     }
 
-    const startPositions = this.transportsNetwork.getPositions(this.start);
-    const endPositions = this.transportsNetwork.getPositions(this.end);
-    this.api
-      .getRoutes(
-        startPositions.join(),
-        endPositions.join(),
-        this.startDate,
-        this.startTime
-      )
-      .subscribe((plannerResource) => {
-        plannerResource.plan.itineraries.forEach((itinerary) => {
-          console.log(itinerary);
-        });
-      });
+    const modal = await this.modalCtrl.create({
+      component: ItinerariesModalComponent,
+      componentProps: {
+        startName: this.start,
+        endName: this.end,
+        startPositions: this.transportsNetwork.getPositions(this.start),
+        endPositions: this.transportsNetwork.getPositions(this.end),
+        date: this.date,
+        time: this.time,
+      },
+    });
+    modal.present();
   }
 }
