@@ -30,19 +30,23 @@ export class SearchRouteClustersComponent implements OnInit {
   }
 
   public onClickClusterName(clusterName: string) {
-    this.navCtrl.navigateBack("/tabs/route", {
-      queryParams: { start: this.start, end: this.end, [this.paramName]: clusterName },
+    this.navCtrl.navigateBack('/tabs/route', {
+      queryParams: {
+        start: this.start,
+        end: this.end,
+        [this.paramName]: clusterName,
+      },
     });
   }
 
   public onChangeSearchbar(event: any) {
     this.clusterNamesToDisplay = this.transportsNetwork.getClusterNames(
-      event.target.value
+      event.target.value, [this.start, this.end]
     );
   }
 
   public back() {
-    this.navCtrl.navigateBack("/tabs/route", {
+    this.navCtrl.navigateBack('/tabs/route', {
       queryParams: { start: this.start, end: this.end },
     });
   }
