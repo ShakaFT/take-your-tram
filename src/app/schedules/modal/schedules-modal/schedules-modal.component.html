@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Horaires des lignes</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-accordion-group expand="inset">
+    <ion-accordion *ngFor="let realTime of currentRealTimes">
+      <ion-item slot="header"
+        [ngStyle]="{'--background': '#'+getLineFromRealTime(realTime.pattern.id)?.color,'--color': '#'+getLineFromRealTime(realTime.pattern.id)?.textColor, 'font-weight': '700'}">
+        <ion-label>{{cluster?.name}}</ion-label>
+      </ion-item>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

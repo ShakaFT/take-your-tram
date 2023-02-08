@@ -6,6 +6,7 @@ import { SchedulesPage } from './schedules.page';
 
 import { SchedulesPageRoutingModule } from './schedules-routing.module';
 import { ClustersModalComponent } from './modal/clusters-modal/clusters-modal.component';
+import { SchedulesModalComponent } from './modal/schedules-modal/schedules-modal.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { ClustersModalComponent } from './modal/clusters-modal/clusters-modal.co
     FormsModule,
     SchedulesPageRoutingModule
   ],
-  declarations: [SchedulesPage, ClustersModalComponent]
+  declarations: [SchedulesPage, ClustersModalComponent, SchedulesModalComponent]
 })
 export class SchedulesPageModule {}
