@@ -29,4 +29,9 @@ export class ApiService {
   public getRealtimesFromLine(clusterCode: string, lineId: string): Observable<RealTime[]> {
     return this.http.get<RealTime[]>(`${this.baseUrl}/routers/default/index/clusters/${clusterCode}/stoptimes?route=${lineId}`)
   }
+
+  public getPolylineJsonFromLine(lineId: string): Observable<any> {
+    lineId = lineId.replace(":", "_")
+    return this.http.get(`${this.baseUrl}/lines/json?types=ligne&codes=${lineId}`)
+  }
 }
