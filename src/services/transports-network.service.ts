@@ -27,7 +27,11 @@ export class TransportsNetworkService {
     return this.transportData
   }
 
-  public getClusterNames(filter: string = '', toExclude: string[]): string[] {
+  public getClusters(): Map<string, string> {
+    return this.clusters
+  }
+
+  public getClusterNames(filter: string = '', toExclude: string[] = []): string[] {
     const filteredNames = [...this.clusters.keys()].filter(name =>
       name.toLowerCase().includes(filter.toLowerCase()) && !toExclude.includes(name)
     );

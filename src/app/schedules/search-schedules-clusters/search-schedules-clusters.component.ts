@@ -34,6 +34,9 @@ export class SearchSchedulesClustersComponent implements OnInit {
   async onClickClusterName(clusterName: string) {
     const modal = await this.modalController.create({
       component: SchedulesModalComponent,
+      componentProps: {
+        clusterName: clusterName 
+      }
     });
     modal.present();
   }

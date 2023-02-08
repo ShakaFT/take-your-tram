@@ -1,9 +1,10 @@
+
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { SchedulesModalComponent } from './schedules-modal.component';
 
-describe('SchedulesModalComponent', () => {
+describe('ClustersModalComponent', () => {
   let component: SchedulesModalComponent;
   let fixture: ComponentFixture<SchedulesModalComponent>;
 
