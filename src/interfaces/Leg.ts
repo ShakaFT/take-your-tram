@@ -8,6 +8,7 @@ export interface Leg {
     mode: string,
     route: string,
     routeColor: string,
+    routeId: string
     routeTextColor: string,
     intermediateStops: Cluster[]
     from: any
