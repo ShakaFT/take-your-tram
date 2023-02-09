@@ -71,7 +71,7 @@ export class ItinerariesModalComponent {
     }
   }
 
-  public getTimeFromTimestamp(timestamp: number, onlyMinutes: boolean = false) {
+  public getTimeFromTimestamp(timestamp: number) {
     const date = new Date(timestamp);
     return `${date.getHours().toString().padStart(2, '0')}:${date
       .getMinutes()
@@ -82,7 +82,7 @@ export class ItinerariesModalComponent {
   public legsToDisplay(itinerary: Itinerary): Leg[] {
     // Remove mode WALK if there is less than a meter ago
     return itinerary.legs.filter(leg => 
-      leg.distance > 100
+      leg.distance > 200
     )
   }
 
@@ -90,7 +90,10 @@ export class ItinerariesModalComponent {
     const modal = await this.modalCtrl.create({
       component: DetailsModalComponent,
       componentProps: {
-        itinerary: itinerary
+        legs: this.legsToDisplay(itinerary),
+        duration: this.convertSecondsToMinutes(itinerary.duration),
+        startTime: this.getTimeFromTimestamp(itinerary.startTime),
+        endTime: this.getTimeFromTimestamp(itinerary.endTime),
       },
     });
     modal.present();

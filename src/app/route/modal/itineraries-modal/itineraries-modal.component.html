@@ -11,10 +11,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <ion-accordion-group expand="inset" *ngFor="let itinerary of itineraries">
-    <ion-accordion>
+  <ion-accordion-group expand="inset">
+    <ion-accordion *ngFor="let itinerary of itineraries">
       <ion-item slot="header">
-        <ion-label>{{ convertSecondsToMinutes(itinerary.duration) }}min</ion-label>
+        <ion-label
+          >{{ convertSecondsToMinutes(itinerary.duration) }}min</ion-label
+        >
         <ion-label
           >{{ getTimeFromTimestamp(itinerary.startTime) }} -
           {{ getTimeFromTimestamp(itinerary.endTime) }}</ion-label
@@ -23,22 +25,23 @@
       <div slot="content">
         <ion-grid class="ion-text-center">
           <ion-row>
-            <ion-col *ngFor="let leg of legsToDisplay(itinerary)"><i class="{{ getIcon(leg.mode) }}"></i></ion-col>
+            <ion-col *ngFor="let leg of legsToDisplay(itinerary)"
+              ><i class="{{ getIcon(leg.mode) }}"></i
+              > {{ leg.mode === "WALK" ? '' : leg.routeId.split(":")[1] }}</ion-col
+            >
           </ion-row>
           <ion-row>
-            <ion-col *ngFor="let leg of legsToDisplay(itinerary)"><ion-chip>{{ chipToDisplay(leg) }}</ion-chip></ion-col>
+            <ion-col *ngFor="let leg of legsToDisplay(itinerary)"
+              ><ion-chip [ngStyle]="{'--background': '#' + leg.routeColor, '--color': '#' + leg.routeTextColor}">{{ chipToDisplay(leg) }}</ion-chip></ion-col
+            >
           </ion-row>
           <ion-row class="ion-padding">
-            <ion-col size="12" (click)="onClickDetails(itinerary)">Voir le détail</ion-col>
+            <ion-col size="12" (click)="onClickDetails(itinerary)"
+              >Voir le détail</ion-col
+            >
           </ion-row>
         </ion-grid>
       </div>
     </ion-accordion>
   </ion-accordion-group>
 </ion-content>
-
-<!--
-  <ion-col><i class="fa-solid fa-train-tram"></i></ion-col>
-  <ion-col><i class="fa-solid fa-bus"></i></ion-col>
-  <ion-col><i class="fa-solid fa-person-walking"></i></ion-col>
--->
