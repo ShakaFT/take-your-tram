@@ -19,6 +19,20 @@
       <ion-item>
         <ion-title slot="start">Fiche Horaire</ion-title>
       </ion-item>
+      <ion-item class="ion-text-center">
+        <input
+          type="date"
+          style="width: 50%; margin-right: 2em"
+          [(ngModel)]="date"
+          (ngModelChange)="changeDate($event)"
+        />
+        <input
+          type="time"
+          style="width: 50%"
+          [(ngModel)]="time"
+          (ngModelChange)="changeTime($event)"
+        />
+      </ion-item>
     </ion-toolbar>
     <ion-toolbar>
       <ion-segment [(ngModel)]="segment">
