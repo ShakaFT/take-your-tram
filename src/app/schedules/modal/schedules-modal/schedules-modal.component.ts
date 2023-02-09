@@ -5,6 +5,7 @@ import { Line } from 'src/interfaces/Line';
 import { RealTime } from 'src/interfaces/RealTime';
 import { ApiService } from 'src/services/api.service';
 import { TransportsNetworkService } from 'src/services/transports-network.service';
+import { TimeTableModalComponent } from '../timetable-modal/timetable-modal.component';
 
 @Component({
   selector: 'app-schedules-modal',
@@ -30,6 +31,17 @@ export class SchedulesModalComponent implements OnInit {
     })
     await this.getRealTimes(this.clusterName!)
   }
+
+  async openTimeTableModal(line: Line) {
+    const modal = await this.modalController.create({
+      component: TimeTableModalComponent,
+      componentProps: {
+        line: line
+      },
+    });
+    modal.present();
+  }
+
 
   async getRealTimes(clusterName: string) {
     return new Promise<void>((resolve, _) => {

@@ -4,6 +4,7 @@ import { Cluster } from 'src/interfaces/Cluster';
 import { Line } from 'src/interfaces/Line';
 import { RealTime } from 'src/interfaces/RealTime';
 import { ApiService } from 'src/services/api.service';
+import { TimeTableModalComponent } from '../timetable-modal/timetable-modal.component';
 
 @Component({
   selector: 'app-clusters-modal',
@@ -37,6 +38,16 @@ export class ClustersModalComponent {
         t.pattern.lastStopName === value.pattern.lastStopName
       ))
     )
+  }
+
+  async openTimeTableModal() {
+    const modal = await this.modalController.create({
+      component: TimeTableModalComponent,
+      componentProps: {
+        line: this.line
+      },
+    });
+    modal.present();
   }
 
   cancel() {

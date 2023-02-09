@@ -6,6 +6,8 @@ import { Cluster } from 'src/interfaces/Cluster';
 import { RealTime } from 'src/interfaces/RealTime';
 import { PlannerResource } from 'src/interfaces/PlannerResource';
 import { TransportsNetworkService } from './transports-network.service';
+import { TimeTable } from 'src/interfaces/TimeTable';
+import { TimeTables } from 'src/interfaces/TimeTables';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +61,12 @@ export class ApiService {
   ): Observable<PlannerResource> {
     return this.http.get<PlannerResource>(
       `${this.baseUrl}/routers/default/plan?routerId=prod&mode=WALK,TRANSIT&showIntermediateStops=true&numItineraries=3&maxWalkDistance=1000&arriveBy=false&fromPlace=${fromPlace}&toPlace=${toPlace}&date=${date}&time=${time}`
+    );
+  }
+
+  public getTimeTable(lineId: string, timestamp: number): Observable<TimeTables>{
+    return this.http.get<TimeTables>(
+      `${this.baseUrl}/ficheHoraires/json?route=${lineId}&time=${timestamp}&nbTrips=3`
     );
   }
 

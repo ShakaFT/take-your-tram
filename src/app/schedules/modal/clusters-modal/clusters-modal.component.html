@@ -5,7 +5,11 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Liste des arrêts</ion-title>
+    <ion-item>
+      <ion-title slot="start">Liste des arrêts</ion-title>
+      <ion-icon slot="end" (click)="openTimeTableModal()" [ngStyle]="{'color': '#' +line?.color}"
+        style="height:1.5em; width: 1.5em;" name="time-outline"></ion-icon>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
@@ -19,7 +23,8 @@
       <div class="ion-padding" slot="content">
         <ion-item-group *ngFor="let RealTime of removeDuplicateRealTimes(currentRealTimes)">
           <ion-item slot="start">
-            <ion-chip [ngStyle]="{'--background': '#'+line!.color,'--color': '#'+line!.textColor, 'font-weight': '700'}">
+            <ion-chip
+              [ngStyle]="{'--background': '#'+line!.color,'--color': '#'+line!.textColor, 'font-weight': '700'}">
               {{line!.shortName}}
             </ion-chip>
             <ion-label class="ion-padding-start">

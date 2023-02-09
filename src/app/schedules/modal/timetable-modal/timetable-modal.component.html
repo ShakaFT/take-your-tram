@@ -1,0 +1,55 @@
+<ion-header>
+  <!-- <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-item>
+      <ion-title slot="start">Fiche Horaire</ion-title>
+    </ion-item>
+  </ion-toolbar> -->
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="cancel()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-item>
+        <ion-title slot="start">Fiche Horaire</ion-title>
+      </ion-item>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="segment">
+        <ion-segment-button value="direction1" style="width:50%; padding: 1em;">
+          <ion-label>{{ city1 }}</ion-label>
+          <ion-label>{{ directionName1 }}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="direction2" style="width:50%; padding: 1em;">
+          <ion-label>{{ city2 }}</ion-label>
+          <ion-label>{{ directionName2 }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  </ion-header>
+</ion-header>
+<ion-content class="ion-padding">
+  <ng-container [ngSwitch]="segment">
+    <ion-list *ngSwitchCase="'direction1'">
+      <ion-grid>
+        <ion-row *ngFor="let timeTableStop of direction1?.arrets">
+          <ion-col class="cell-class">
+            {{timeTableStop.stopName.split(",")[0]}}
+            <br>
+            {{timeTableStop.stopName.split(",")[1]}}
+          </ion-col>
+          <ion-col class="cell-class" size="{{ 6 / timeTableStop.trips.length }}" *ngFor="let trip of timeTableStop.trips">{{getTripTime(trip)}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+    <ion-list *ngSwitchCase="'direction2'">
+
+    </ion-list>
+  </ng-container>
+</ion-content>
