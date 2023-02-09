@@ -5,14 +5,16 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Horaires des lignes</ion-title>
+    <ion-title>{{ clusterName }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
+  <ion-title class="ion-text-center">Horaires en temps réel</ion-title>
   <ion-accordion-group expand="inset">
     <ion-accordion *ngFor="let line of lines">
       <ion-item slot="header">
         <ion-chip [ngStyle]="{'--background': '#'+line.color,'--color': '#'+line.textColor, 'font-weight': '700'}">{{line.shortName}}</ion-chip>
+        <ion-label class="ion-padding">{{ line.type }}</ion-label>
       </ion-item>
       <div class="ion-padding" slot="content">
         <ion-item-group  *ngFor="let realTime of getCurrentRealTimesOfLine(line.id)">
@@ -26,6 +28,7 @@
           </ion-item>
           <ion-item *ngIf="realTime" class="ion-text-center">
             <ion-label *ngFor="let time of realTime.times.slice(0, 3)">
+              <ion-icon name="wifi-outline"></ion-icon>
               {{calculateNextArrival(time.serviceDay, time.realtimeArrival)}}
             </ion-label>
           </ion-item>

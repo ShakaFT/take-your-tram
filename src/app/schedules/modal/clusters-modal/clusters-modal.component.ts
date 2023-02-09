@@ -1,26 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Cluster } from 'src/interfaces/Cluster';
 import { Line } from 'src/interfaces/Line';
-import { RealTime } from 'src/interfaces/RealTimes';
+import { RealTime } from 'src/interfaces/RealTime';
 import { ApiService } from 'src/services/api.service';
-import { TransportsNetworkService } from 'src/services/transports-network.service';
 
 @Component({
   selector: 'app-clusters-modal',
   templateUrl: './clusters-modal.component.html',
   styleUrls: ['./clusters-modal.component.scss'],
 })
-export class ClustersModalComponent implements OnInit {
+export class ClustersModalComponent {
 
-  constructor(private modalController: ModalController, private transportsNetwork: TransportsNetworkService, private api: ApiService) { }
+  constructor(private modalController: ModalController, private api: ApiService) { }
 
   @Input() line: Line | null = null
 
   clusters: Cluster[] = []
   currentRealTimes: RealTime[] = []
-
-  ngOnInit() { }
 
   getRealTimesFromLine(clusterCode: string, lineId: string) {
     this.api.getRealtimesFromLine(clusterCode, lineId).subscribe(data => {
@@ -39,9 +36,7 @@ export class ClustersModalComponent implements OnInit {
       index === self.findIndex((t) => (
         t.pattern.lastStopName === value.pattern.lastStopName
       ))
-
     )
-
   }
 
   cancel() {

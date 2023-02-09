@@ -1,8 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Horaires
-    </ion-title>
+    <ion-item
+      ><ion-title> Horaires </ion-title>
+      <ion-searchbar
+        placeholder="Rechercher"
+        (click)="displaySearchSchedules()"
+      ></ion-searchbar
+    ></ion-item>
   </ion-toolbar>
 </ion-header>
 
@@ -12,15 +16,17 @@
       <ion-title size="large">Horaires</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-searchbar placeholder="Arrêt" (click)="displaySearchSchedules()"></ion-searchbar>
+
   <ion-card *ngFor="let linesType of linesTypes">
     <ion-card-header>
       <ion-card-title>{{linesType}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-label *ngFor="let line of transportData.get(linesType)">
-        <ion-chip (click)="openModal(line)"
-          [ngStyle]="{'--background': '#'+line.color,'--color': '#'+line.textColor, 'font-weight': '700'}">
+        <ion-chip
+          (click)="openModal(line)"
+          [ngStyle]="{'--background': '#'+line.color,'--color': '#'+line.textColor, 'font-weight': '700'}"
+        >
           {{line.shortName}}
         </ion-chip>
       </ion-label>

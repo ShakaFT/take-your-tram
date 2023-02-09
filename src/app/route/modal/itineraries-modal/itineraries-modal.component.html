@@ -26,19 +26,25 @@
         <ion-grid class="ion-text-center">
           <ion-row>
             <ion-col *ngFor="let leg of legsToDisplay(itinerary)"
-              ><i class="{{ getIcon(leg.mode) }}"></i
-              > {{ leg.mode === "WALK" ? '' : leg.routeId.split(":")[1] }}</ion-col
+              ><i class="{{ getIcon(leg.mode) }}"></i>
+              {{
+                leg.mode === "WALK" ? "" : getShortName(leg.routeId)
+              }}</ion-col
             >
           </ion-row>
           <ion-row>
             <ion-col *ngFor="let leg of legsToDisplay(itinerary)"
-              ><ion-chip [ngStyle]="{'--background': '#' + leg.routeColor, '--color': '#' + leg.routeTextColor}">{{ chipToDisplay(leg) }}</ion-chip></ion-col
+              ><ion-chip
+                [ngStyle]="{
+                  '--background': '#' + leg.routeColor,
+                  '--color': '#' + leg.routeTextColor
+                }"
+                >{{ chipToDisplay(leg) }}</ion-chip
+              ></ion-col
             >
           </ion-row>
-          <ion-row class="ion-padding">
-            <ion-col size="12" (click)="onClickDetails(itinerary)"
-              >Voir le détail</ion-col
-            >
+          <ion-row class="ion-padding" (click)="onClickDetails(itinerary)">
+            <ion-col size="12" style="background-color:#383a3e; border-radius: 10px;">Voir le détail</ion-col>
           </ion-row>
         </ion-grid>
       </div>

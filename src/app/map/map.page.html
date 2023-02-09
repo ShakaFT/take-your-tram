@@ -1,8 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Carte
-    </ion-title>
     <ion-item>
       <ion-chip *ngFor="let linesType of linesTypes"
         [ngStyle]="{'--background': linesTypesDisplayed.includes(linesType) ? 'green' : 'dimgray'}"

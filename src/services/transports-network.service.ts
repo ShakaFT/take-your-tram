@@ -24,35 +24,43 @@ export class TransportsNetworkService {
   }
 
   public getTransportData(): Map<string, Line[]> {
-    return this.transportData
+    return this.transportData;
   }
 
   public getClusters(): Map<string, string> {
-    return this.clusters
+    return this.clusters;
   }
 
-  public getClusterNames(filter: string = '', toExclude: string[] = []): string[] {
-    const filteredNames = [...this.clusters.keys()].filter(name =>
-      name.toLowerCase().includes(filter.toLowerCase()) && !toExclude.includes(name)
+  public getClusterNames(
+    filter: string = '',
+    toExclude: string[] = []
+  ): string[] {
+    const filteredNames = [...this.clusters.keys()].filter(
+      (name) =>
+        name
+          .toLowerCase()
+          .replace(/\s/g, '')
+          .includes(filter.toLowerCase().replace(/\s/g, '')) &&
+        !toExclude.includes(name)
     );
     filteredNames.sort();
     return filteredNames;
   }
 
   public getPositions(clusterName: string): number[] {
-    const values = Array.from(this.transportData.values())
+    const values = Array.from(this.transportData.values());
     for (let i = 0; i < values.length; i++) {
-      const lines = values[i]
+      const lines = values[i];
       for (let j = 0; j < lines.length; j++) {
-        const line = lines[j]
+        const line = lines[j];
         for (let k = 0; k < line.clusters.length; k++) {
-          const cluster = line.clusters[k]
+          const cluster = line.clusters[k];
           if (clusterName === cluster.name) {
-            return [cluster.lat, cluster.lon]
+            return [cluster.lat, cluster.lon];
           }
         }
       }
     }
-    return [0, 0]
+    return [0, 0];
   }
 }

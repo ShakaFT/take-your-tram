@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Line } from 'src/interfaces/Line';
 import { Cluster } from 'src/interfaces/Cluster';
-import { RealTime } from 'src/interfaces/RealTimes';
+import { RealTime } from 'src/interfaces/RealTime';
 import { PlannerResource } from 'src/interfaces/PlannerResource';
 import { TransportsNetworkService } from './transports-network.service';
 
@@ -17,10 +17,10 @@ export class ApiService {
 
   constructor(private http: HttpClient, private transportNetwork: TransportsNetworkService) {}
 
-  public getLines(lineType: string): Observable<Line[]> {
-    return this.http.get<Line[]>(
-      `${this.baseUrl}/routers/default/index/routes?reseaux=${lineType}`
-    );
+  public getLines(lineType: string = "", lineId: string = ""): Observable<Line[]> {
+    const url = `${this.baseUrl}/routers/default/index/routes`
+    const finalUrl = lineType ? `${url}?reseaux=${lineType}` : `${url}?codes=${lineId}`
+    return this.http.get<Line[]>(finalUrl);
   }
 
   public getLinesFromCluster(clusterName: string): Observable<Line[]> {

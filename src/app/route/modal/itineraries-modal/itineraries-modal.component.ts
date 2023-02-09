@@ -43,7 +43,9 @@ export class ItinerariesModalComponent {
 
   public chipToDisplay(leg: Leg) {
     return leg.intermediateStops
-      ? `${leg.intermediateStops.length + 1} ${leg.intermediateStops.length + 1 === 1 ? 'arrêt' :'arrêts'}`
+      ? `${leg.intermediateStops.length + 1} ${
+          leg.intermediateStops.length + 1 === 1 ? 'arrêt' : 'arrêts'
+        }`
       : `${Math.ceil(leg.distance)}m`;
   }
 
@@ -57,18 +59,25 @@ export class ItinerariesModalComponent {
 
   public getIcon(mode: string): string {
     switch (mode) {
-      case "WALK":
-        return 'fa-solid fa-person-walking'
+      case 'WALK':
+        return 'fa-solid fa-person-walking';
 
-      case "TRAM":
-        return 'fa-solid fa-train-tram'
+      case 'TRAM':
+        return 'fa-solid fa-train-tram';
 
-      case "BUS":
-        return 'fa-solid fa-bus'
+      case 'BUS':
+        return 'fa-solid fa-bus';
 
       default:
-        return ''
+        return '';
     }
+  }
+
+  public getShortName(routeId: string): string {
+    // Fix bug
+    const shortName = routeId.split(':')[1];
+    const linesC = ['1', '2', '3', '4', '5', '6', '7'];
+    return linesC.includes(shortName) ? `C${shortName}` : shortName;
   }
 
   public getTimeFromTimestamp(timestamp: number) {
@@ -81,9 +90,7 @@ export class ItinerariesModalComponent {
 
   public legsToDisplay(itinerary: Itinerary): Leg[] {
     // Remove mode WALK if there is less than a meter ago
-    return itinerary.legs.filter(leg => 
-      leg.distance > 200
-    )
+    return itinerary.legs.filter((leg) => leg.distance > 200);
   }
 
   public async onClickDetails(itinerary: Itinerary) {

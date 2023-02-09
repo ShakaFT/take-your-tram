@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { IonSearchbar, NavController } from '@ionic/angular';
 import { TransportsNetworkService } from 'src/services/transports-network.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { TransportsNetworkService } from 'src/services/transports-network.servic
 })
 export class SearchRouteClustersComponent implements OnInit {
   public clusterNamesToDisplay: string[] = [];
+  @ViewChild(IonSearchbar) searchbar: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -22,6 +23,9 @@ export class SearchRouteClustersComponent implements OnInit {
   public end = '';
 
   ngOnInit() {
+    setTimeout(() => {
+      this.searchbar.setFocus();
+    }, 150);
     this.route.queryParams.subscribe((params) => {
       this.paramName = params['paramName'];
       this.start = params['start'];
@@ -41,7 +45,8 @@ export class SearchRouteClustersComponent implements OnInit {
 
   public onChangeSearchbar(event: any) {
     this.clusterNamesToDisplay = this.transportsNetwork.getClusterNames(
-      event.target.value, [this.start, this.end]
+      event.target.value,
+      [this.start, this.end]
     );
   }
 

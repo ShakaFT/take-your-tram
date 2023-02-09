@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { LINES_TYPES } from 'src/app/constants';
 import { Line } from 'src/interfaces/Line';
-import { RealTime } from 'src/interfaces/RealTimes';
+import { RealTime } from 'src/interfaces/RealTime';
 import { ApiService } from 'src/services/api.service';
 import { TransportsNetworkService } from 'src/services/transports-network.service';
 

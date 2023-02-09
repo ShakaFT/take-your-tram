@@ -28,6 +28,7 @@
           </ion-item>
           <ion-item class="ion-text-center">
             <ion-label *ngFor="let time of RealTime.times.slice(0, 3)">
+              <ion-icon name="wifi-outline"></ion-icon>
               {{calculateNextArrival(time.serviceDay, time.realtimeArrival)}}
             </ion-label>
           </ion-item>
