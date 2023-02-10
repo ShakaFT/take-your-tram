@@ -10,18 +10,9 @@
         <ion-title slot="start">Fiche Horaire</ion-title>
       </ion-item>
       <ion-item class="ion-text-center">
-        <input
-          type="date"
-          style="width: 50%; margin-right: 2em"
-          [(ngModel)]="date"
-          (ngModelChange)="changeDate($event)"
-        />
-        <input
-          type="time"
-          style="width: 50%"
-          [(ngModel)]="time"
-          (ngModelChange)="changeTime($event)"
-        />
+        <input type="date" style="width: 50%; margin-right: 2em" [(ngModel)]="date"
+          (ngModelChange)="changeDate($event)" />
+        <input type="time" style="width: 50%" [(ngModel)]="time" (ngModelChange)="changeTime($event)" />
       </ion-item>
     </ion-toolbar>
     <ion-toolbar>
@@ -39,55 +30,30 @@
   </ion-header>
 </ion-header>
 <ion-content class="ion-padding">
-  <ng-container [ngSwitch]="segment">
-    <ion-list *ngSwitchCase="'direction1'">
-      <ion-grid>
-        <ion-row *ngFor="let timeTableStop of direction1?.arrets">
-          <ion-col class="cell-class">
-            {{ timeTableStop.stopName.split(",")[0] }}
-            <br />
-            {{ timeTableStop.stopName.split(",")[1] }}
-          </ion-col>
-          <ion-col
-            class="cell-class"
-            size="{{ 6 / timeTableStop.trips.length }}"
-            *ngFor="let trip of timeTableStop.trips"
-            >{{ getTripTime(trip) }}</ion-col
-          >
-        </ion-row>
-      </ion-grid>
-    </ion-list>
-    <ion-list *ngSwitchCase="'direction2'">
-      <ion-grid>
-        <ion-row *ngFor="let timeTableStop of direction2?.arrets">
-          <ion-col class="cell-class">
-            {{ timeTableStop.stopName.split(",")[0] }}
-            <br />
-            {{ timeTableStop.stopName.split(",")[1] }}
-          </ion-col>
-          <ion-col
-            class="cell-class"
-            size="{{ 6 / timeTableStop.trips.length }}"
-            *ngFor="let trip of timeTableStop.trips"
-            >{{ getTripTime(trip) }}</ion-col
-          >
-        </ion-row>
-      </ion-grid>
-    </ion-list>
+    <ion-grid>
+      <ion-row *ngFor="let timeTableStop of getTimeTableStops()">
+        <ion-col class="cell-class">
+          {{ timeTableStop.stopName.split(",")[0] }}
+          <br />
+          {{ timeTableStop.stopName.split(",")[1] }}
+        </ion-col>
+        <ion-col class="cell-class" size="{{ 6 / timeTableStop.trips.length }}"
+          *ngFor="let trip of timeTableStop.trips">{{ getTripTime(trip) }}</ion-col>
+      </ion-row>
+    </ion-grid>
     <div style="height: 100px;"></div>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-row>
         <ion-col>
-          <ion-fab-button>
+          <ion-fab-button (click)="clickPreviousButton()">
             <ion-icon name="arrow-back-outline"></ion-icon>
           </ion-fab-button>
         </ion-col>
         <ion-col>
-          <ion-fab-button>
+          <ion-fab-button (click)="clickNextButton()">
             <ion-icon name="arrow-forward-outline"></ion-icon>
           </ion-fab-button>
         </ion-col>
       </ion-row>
     </ion-fab>
-  </ng-container>
 </ion-content>
