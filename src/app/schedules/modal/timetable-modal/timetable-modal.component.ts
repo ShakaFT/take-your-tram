@@ -33,9 +33,8 @@ export class TimeTableModalComponent {
   public segment: string = "direction1"
 
   async ngOnInit() {
-    this.setDateTime(1676088000000)
+    this.setDateTime(Date.now())
     this.timesToDisplay.push(await this.getTimeTables(this.toTimestamp()))
-    console.log(this.timesToDisplay)
     this.api.getClusters(this.line!.id).subscribe(clusters => {
       const cluster1 = clusters[0]
       const cluster2 = clusters[clusters.length - 1]
@@ -65,7 +64,9 @@ export class TimeTableModalComponent {
       return
     }
     const previousTimeTables = await this.getTimeTables(timestamp)
-    if(previousTimeTables[this.getIndexDirection()].prevTime === timestamp) return
+    if (previousTimeTables[this.getIndexDirection()].prevTime === timestamp) {
+      return
+    }
     this.timesToDisplay.unshift(previousTimeTables)
   }
 
@@ -75,7 +76,10 @@ export class TimeTableModalComponent {
     this.setDateTime(timestamp)
     if (this.page === this.timesToDisplay.length - 1) {
       const nextTimeTables = await this.getTimeTables(timestamp)
-      if (nextTimeTables[this.getIndexDirection()].nextTime === timestamp) return
+      if (nextTimeTables[this.getIndexDirection()].nextTime === timestamp) {
+        this.nextDay()
+        return
+      }
       this.timesToDisplay.push(nextTimeTables)
     }
     this.page++
@@ -120,6 +124,17 @@ export class TimeTableModalComponent {
 
   private toTimestamp(): number {
     return Date.parse(`${this.date} ${this.time}`)
+  }
+
+  private nextDay() {
+    const currentDate = new Date(this.toTimestamp())
+    if (currentDate.getHours() >= 5) {
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    currentDate.setHours(5)
+    currentDate.setMinutes(0)
+    this.setDateTime(currentDate.valueOf())
+    this.reset()
   }
 
   cancel() {
