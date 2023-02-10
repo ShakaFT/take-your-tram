@@ -33,8 +33,9 @@ export class TimeTableModalComponent {
   public segment: string = "direction1"
 
   async ngOnInit() {
-    this.setDateTime(Date.now())
+    this.setDateTime(1676088000000)
     this.timesToDisplay.push(await this.getTimeTables(this.toTimestamp()))
+    console.log(this.timesToDisplay)
     this.api.getClusters(this.line!.id).subscribe(clusters => {
       const cluster1 = clusters[0]
       const cluster2 = clusters[clusters.length - 1]
@@ -108,6 +109,7 @@ export class TimeTableModalComponent {
 
   private async reset() {
     this.timesToDisplay = [ await this.getTimeTables(this.toTimestamp())]
+    this.page = 0
   }
 
   setDateTime(timestamp: number) {
