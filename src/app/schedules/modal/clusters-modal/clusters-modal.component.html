@@ -13,7 +13,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <ion-accordion-group expand="inset">
+  <ion-accordion-group (ionChange)="removeInterval()" expand="inset">
     <ion-accordion *ngFor="let cluster of line?.clusters" value={{cluster.name}}
       (click)="getRealTimesFromLine(cluster.code, line!.id)">
       <ion-item slot="header"

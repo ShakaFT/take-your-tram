@@ -38,7 +38,6 @@ export class ApiService {
   }
 
   public getRealtimes(clusterName: string): Observable<RealTime[]> {
-    console.log(this.transportNetwork.getClusters().get(clusterName))
     return this.http.get<RealTime[]>(
       `${this.baseUrl}/routers/default/index/clusters/${this.transportNetwork.getClusters().get(clusterName)?.replace(":", ":GEN")}/stoptimes`
     );

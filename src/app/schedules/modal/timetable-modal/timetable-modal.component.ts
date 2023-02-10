@@ -66,7 +66,6 @@ export class TimeTableModalComponent {
     const previousTimeTables = await this.getTimeTables(timestamp)
     if(previousTimeTables[this.getIndexDirection()].prevTime === timestamp) return
     this.timesToDisplay.unshift(previousTimeTables)
-    console.log(this.timesToDisplay.length)
   }
 
   async clickNextButton() {
@@ -78,7 +77,6 @@ export class TimeTableModalComponent {
       if (nextTimeTables[this.getIndexDirection()].nextTime === timestamp) return
       this.timesToDisplay.push(nextTimeTables)
     }
-    console.log(this.timesToDisplay.length)
     this.page++
   }
 

@@ -17,6 +17,7 @@ export class ClustersModalComponent {
 
   @Input() line: Line | null = null
 
+  interval?: NodeJS.Timeout
   clusters: Cluster[] = []
   currentRealTimes: RealTime[] = []
 
@@ -24,6 +25,9 @@ export class ClustersModalComponent {
     this.api.getRealtimesFromLine(clusterCode, lineId).subscribe(data => {
       this.currentRealTimes = data
     })
+    this.interval = setInterval(() => {this.api.getRealtimesFromLine(clusterCode, lineId).subscribe(data => {
+      this.currentRealTimes = data
+    })}, 10000)
   }
 
   calculateNextArrival(serviceDay: number, realtimeArrival: number): string {
@@ -40,6 +44,10 @@ export class ClustersModalComponent {
     )
   }
 
+  removeInterval() {
+    clearInterval(this.interval)
+  }
+
   async openTimeTableModal() {
     const modal = await this.modalController.create({
       component: TimeTableModalComponent,
@@ -51,6 +59,7 @@ export class ClustersModalComponent {
   }
 
   cancel() {
+    this.removeInterval()
     return this.modalController.dismiss(null, 'cancel');
   }
 

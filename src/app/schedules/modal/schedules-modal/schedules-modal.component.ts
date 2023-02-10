@@ -18,6 +18,7 @@ export class SchedulesModalComponent implements OnInit {
 
   @Input() clusterName: string | null = null
 
+  interval?: NodeJS.Timeout 
   currentRealTimes: RealTime[] = []
   lines: Line[] = []
   linesTypes: string[] = LINES_TYPES
@@ -29,7 +30,11 @@ export class SchedulesModalComponent implements OnInit {
         .filter(line => this.linesTypes.includes(line.type))
         .sort((a, b) => a.shortName < b.shortName ? -1 : 1)
     })
+
     await this.getRealTimes(this.clusterName!)
+    this.interval = setInterval(() => {
+       this.getRealTimes(this.clusterName!)
+    }, 10000)
   }
 
   async openTimeTableModal(line: Line) {
@@ -85,6 +90,7 @@ export class SchedulesModalComponent implements OnInit {
   }
 
   cancel() {
+    clearInterval(this.interval)
     return this.modalController.dismiss(null, 'cancel');
   }
 
