@@ -56,32 +56,39 @@ export class TimeTableModalComponent {
   }
 
   async clickPreviousButton() {
-    const currenTime = this.timesToDisplay[this.page]
-    const timestamp = this.segment === "direction1" ? currenTime[0].prevTime : currenTime[1].prevTime
+    const currentTime = this.timesToDisplay[this.page]
+    const timestamp = currentTime[this.getIndexDirection()].prevTime
     this.setDateTime(timestamp)
     if (this.page !== 0) {
       this.page--
       return
     }
-    this.timesToDisplay.unshift(await this.getTimeTables(timestamp))
+    const previousTimeTables = await this.getTimeTables(timestamp)
+    if(previousTimeTables[this.getIndexDirection()].prevTime === timestamp) return
+    this.timesToDisplay.unshift(previousTimeTables)
     console.log(this.timesToDisplay.length)
   }
 
   async clickNextButton() {
     const currentTime = this.timesToDisplay[this.page]
-    const timestamp = this.segment === "direction1" ? currentTime[0].nextTime : currentTime[1].nextTime
+    const timestamp = currentTime[this.getIndexDirection()].nextTime
     this.setDateTime(timestamp)
     if (this.page === this.timesToDisplay.length - 1) {
-      this.timesToDisplay.push(await this.getTimeTables(timestamp))
+      const nextTimeTables = await this.getTimeTables(timestamp)
+      if (nextTimeTables[this.getIndexDirection()].nextTime === timestamp) return
+      this.timesToDisplay.push(nextTimeTables)
     }
     console.log(this.timesToDisplay.length)
     this.page++
   }
 
+  private getIndexDirection(): 0 | 1 {
+    return this.segment === "direction1" ? 0 : 1
+  }
+
   getTimeTableStops(): TimeTableStop[] {
-    const index = this.segment === 'direction1' ? 0 : 1
     try {
-      return this.timesToDisplay[this.page][index].arrets
+      return this.timesToDisplay[this.page][this.getIndexDirection()].arrets
     } catch {
       return []
     }
